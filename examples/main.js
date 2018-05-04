@@ -1,6 +1,6 @@
 /*!
  * Liab Cropper JavaScript Library v0.1
- * Date: 2018-01-20T17:24Z
+ * Date: 2018-05-04
  */
 
 (function() {
@@ -12,14 +12,14 @@
     window.Liab = function(element, options) {
         self.element = element;
         
-        self.config['area-width'] = options.crop && options.crop.width ? options.crop.width : self.config['area-width'];
-        self.config['area-height'] = options.crop && options.crop.height ? options.crop.height : self.config['area-height'];
-        self.config['area-border'] = options.crop && options.crop.border ? options.crop.border : self.config['area-border'];
-        self.config['area-border-color'] = options.crop && options.crop.borderСolor ? options.crop.borderСolor : self.config['area-border-color'];
-        self.config['zone-label'] = options.label ? options.label : self.config['zone-label'];
-        self.config['preview-img'] = options.previewImg ? options.previewImg : self.config['preview-img'];
-        self.config['service'] = options.service ? options.service : self.config['service'];
-        self.config['upload'] = options.upload ? options.upload : self.config['upload'];
+        self.config['area-width'] = options && options.crop && options.crop.width ? options.crop.width : self.config['area-width'];
+        self.config['area-height'] = options && options.crop && options.crop.height ? options.crop.height : self.config['area-height'];
+        self.config['area-border'] = options && options.crop && options.crop.border ? options.crop.border : self.config['area-border'];
+        self.config['area-border-color'] = options && options.crop && options.crop.borderСolor ? options.crop.borderСolor : self.config['area-border-color'];
+        self.config['zone-label'] = options && options.label ? options.label : self.config['zone-label'];
+        self.config['preview-img'] = options && options.previewImg ? options.previewImg : self.config['preview-img'];
+        self.config['service'] = options && options.service ? options.service : self.config['service'];
+        self.config['upload'] = options && options.upload ? options.upload : self.config['upload'];
 
         if (self.element) {
             drawZone();
@@ -80,6 +80,10 @@
         }
 
         document.getElementById('confirmBtn').addEventListener('click', function() {
+
+            self.config['area-x'] = ! self.config['area-x'] ?  (canvas.width / 2) - (self.config['area-width'] / 2) : self.config['area-x'];
+            self.config['area-y'] = ! self.config['area-y'] ?  (canvas.height / 2) - (self.config['area-height'] / 2) : self.config['area-y'];
+
             var tmpCanvas = document.createElement('canvas'),
                 tmpCtx = tmpCanvas.getContext('2d');
             tmpCanvas.width = self.config['area-width'];
@@ -187,7 +191,7 @@
             "cursor" : "nwse-resize"
         });
 
-        window.balls = balls;
+        self.balls = balls;
 
         for(var b in balls) {
             var ball = balls[b];
@@ -208,10 +212,10 @@
 
             if (x >= ball.x && x <= ball.x + ball.width &&
                 y >= ball.y && y <= ball.y + ball.height) {
-                document.body.style.cursor = ball.cursor;
+                self.canvas.style.cursor = ball.cursor;
                 return ;
             }
-            document.body.style.cursor = "default";
+            self.canvas.style.cursor = "auto";
         }, false);
 
         canvas.addEventListener('mousemove', function(e) {
@@ -223,7 +227,7 @@
             var top = self.config['area-y'] ? self.config['area-y'] : (canvas.height / 2) - (self.config['area-height'] / 2);
 
             if (x > left && x <= self.config['area-width'] + left && y > top && y <= self.config['area-height'] + top) {
-                document.body.style.cursor = "all-scroll";
+                self.canvas.style.cursor = "all-scroll";
             }
         }, false);
 
@@ -237,8 +241,8 @@
         var y = e.clientY - rect.top;
 
         var ball;
-        for(var i in balls) {
-            ball = balls[i];
+        for(var i in self.balls) {
+            ball = self.balls[i];
             if (x >= ball.x && x <= ball.x + ball.width && y >= ball.y && y <= ball.y + ball.height) {
                 var f = moveBall.bind({ball : ball});
                 canvas.addEventListener('mousemove', f, false);
@@ -278,6 +282,10 @@
         
         self.config['area-width'] = x - ((canvas.width / 2) - (self.config['area-width'] / 2));
         self.config['area-height'] = y - ((canvas.height / 2) - (self.config['area-height'] / 2));
+        
+        self.config['area-x'] = (canvas.width / 2) - (self.config['area-width'] / 2)
+        self.config['area-y'] = (canvas.height / 2) - (self.config['area-height'] / 2)
+
         self.config['move-mode'] = "ball";
         load();
     }
@@ -299,5 +307,5 @@
 
 
 window.addEventListener('load', function() {
-    var liab = new Liab(document.getElementById('upload'), {});
+    var liab = new Liab(document.getElementById('upload'));
 });
