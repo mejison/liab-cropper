@@ -1,0 +1,81 @@
+.liab.zone {
+    border-radius: .75rem;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #f1f1f1;
+    padding: 40px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.liab.zone .file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 80px;
+    opacity: 0;
+}
+
+.liab.zone .file:hover {
+    cursor: pointer;
+}
+
+section.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 998;
+}
+
+section.modalWindow {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    z-index: 999 !important;
+    width: 600px;
+    min-height: 200px;
+    margin-left: -300px;
+    background: #FFF;
+    cursor: default;
+}
+
+section.modal.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 997;
+    cursor: pointer;
+}
+
+
+section.modalWindow section.modalWrapper {
+    margin: 30px;
+    padding: 15px;
+    text-align: left;
+    line-height: 20px !important;
+}
+
+.groupBtn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.closeBtn,
+.confirmBtn {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: rgba(0,0%,100%,.15)
+}
+
+.closeBtn {
+    margin-left: 20px;
+}
+
