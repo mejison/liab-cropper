@@ -296,22 +296,3 @@
         };
     }
 })();
-
-
-window.addEventListener('load', function() {
-    var liab = new Liab(document.getElementById('upload'), {
-        crop : {
-            border : 3,
-            width: 150,
-            height: 100,
-            borderСolor : 'blue'
-        },
-        service : '/test.php',
-        upload : true,
-        success : function(data, ready) {
-            console.log('Upload file');
-        },
-        label : "Enter your image here.",
-        meta : {}
-    });
-});
