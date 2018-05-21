@@ -22,6 +22,7 @@
         self.config['upload'] = options && options.upload ? options.upload : self.config['upload']; 
         self.config['success'] = options && options.success ? options.success : self.config['success']; 
         self.config['meta'] = options && options.meta ? options.meta : self.config['meta']; 
+        self.config['headers'] = options && options.headers ? options.headers : self.config['headers']; 
 
         if (self.element) {
             drawZone();
@@ -110,6 +111,13 @@
             if (self.config['upload']) {
                 var http = new XMLHttpRequest();
                 http.open("POST", self.config['service'], true);
+                
+                if (Object.keys(self.config['headers']).length) {
+                    for(var h in  self.config['headers']) {
+                        http.setRequestHeader(h, self.config['headers'][h]);
+                    }
+                }
+
                 http.onreadystatechange = function() {
                     if(http.readyState == 4 && http.status == 200) {
                         self.config['success'](http.responseText)
