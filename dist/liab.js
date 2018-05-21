@@ -20,7 +20,8 @@
         self.config['preview-img'] = options && options.previewImg ? options.previewImg : self.config['preview-img'];
         self.config['service'] = options && options.service ? options.service : self.config['service'];
         self.config['upload'] = options && options.upload ? options.upload : self.config['upload']; 
-		self.config['success'] = options && options.success ? options.success : self.config['success']; 
+        self.config['success'] = options && options.success ? options.success : self.config['success']; 
+        self.config['meta'] = options && options.meta ? options.meta : self.config['meta']; 
 
         if (self.element) {
             drawZone();
@@ -117,8 +118,8 @@
 
                 var fd = new FormData();
                 fd.append('file', img);
-                for(var m in this.config['meta']) {
-                    fd.append(m, this.config['meta']);
+                for(var m in  self.config['meta']) {
+                    fd.append(m,  self.config['meta']);
                 }
                 http.send(fd);
             }
